@@ -7,68 +7,113 @@
 <style>
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #ff6a88, #ff99ac);
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(to bottom,#ff5f9e,#ffc371);
   color:white;
   text-align:center;
+  overflow:hidden;
 }
 
-.container{
-  padding:40px 20px;
+.screen{
+  display:none;
+  padding:50px 20px;
 }
 
-img{
-  width:200px;
-  height:200px;
-  border-radius:50%;
-  border:5px solid white;
-  object-fit:cover;
-  margin-top:20px;
-}
+.active{ display:block; }
 
-h1{
-  font-size:42px;
-  margin-top:25px;
-  animation: glow 1.5s infinite alternate;
-}
-
-p{
-  font-size:20px;
-  margin:20px;
-  line-height:1.6;
-}
+h1{ font-size:38px; }
+p{ font-size:20px; line-height:1.7; }
 
 button{
-  padding:12px 30px;
+  padding:14px 32px;
   font-size:18px;
   border:none;
   border-radius:30px;
   background:white;
-  color:#ff4f81;
+  color:#ff3d7f;
   cursor:pointer;
   margin-top:25px;
 }
 
-button:hover{
-  background:#ffe3ea;
+.candles{ font-size:55px; margin:30px; }
+.cake{ font-size:120px; margin:30px; animation: pulse 1s infinite; }
+
+@keyframes pulse{
+  from{ transform:scale(1); }
+  to{ transform:scale(1.08); }
 }
 
-@keyframes glow{
-  from{ text-shadow:0 0 10px white; }
-  to{ text-shadow:0 0 25px yellow; }
+/* Hearts */
+.heart{
+  position:absolute;
+  color:rgba(255,255,255,0.8);
+  font-size:20px;
+  animation: float 6s linear infinite;
+}
+@keyframes float{
+  from{ bottom:-20px; opacity:1; }
+  to{ bottom:100%; opacity:0; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- MUSIC -->
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- PHOTO -->
-  <img src="photo.jpg" alt="Ibrahim">
-
+<!-- SCREEN 1 -->
+<div class="screen active" id="s1">
   <h1>🎂 Happy Birthday Ibrahim ❤️</h1>
+  <p>Aankhein band karo, dua mango ✨<br>aur candles blow karo 🕯️</p>
+  <div class="candles">🕯️ 🕯️ 🕯️</div>
+  <button onclick="next1()">Blow Candles 💨</button>
+</div>
 
+<!-- SCREEN 2 -->
+<div class="screen" id="s2">
+  <h1>🎉 Candles Blown!</h1>
+  <p>Ab cake cut karo 🎂</p>
+  <div class="cake">🎂</div>
+  <button onclick="next2()">Cut Cake 🔪</button>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="screen" id="s3">
+  <h1>💖 For You Ibrahim 💖</h1>
   <p>
-    Aaj ka din sirf tumhara hai 💕<br>
-    Tum meri zind
+    Tum meri zindagi ka<br>
+    sab se khoobsurat gift ho 🤍<br><br>
+    Tumhari hansi meri sukoon hai ✨<br>
+    Tumhara saath meri dua 🤲<br><br>
+    Allah tumhein lambi umar,<br>
+    kamyabi aur bohot si khushiyan de 🌙<br><br>
+    — Tumhari Zainab ❤️
+  </p>
+</div>
+
+<script>
+function next1(){
+  s1.classList.remove("active");
+  s2.classList.add("active");
+}
+function next2(){
+  s2.classList.remove("active");
+  s3.classList.add("active");
+}
+
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*100+"%";
+  heart.style.fontSize=(Math.random()*20+15)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},500);
+</script>
+
+</body>
+</html>
